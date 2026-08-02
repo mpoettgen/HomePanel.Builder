@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HomePanel.Builder/HomePanel.Builder.Client/HomePanel.Builder.Client.csproj" />
+  <Project Path="HomePanel.Builder/HomePanel.Builder/HomePanel.Builder.csproj" />
+</Solution>
