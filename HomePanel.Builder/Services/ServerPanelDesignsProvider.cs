@@ -1,4 +1,4 @@
-﻿using HomePanel.Builder.Client.Models;
+using HomePanel.Builder.Client.Models;
 using HomePanel.Builder.Client.Services;
 using HomePanel.Builder.Models;
 using Microsoft.Extensions.Options;
@@ -23,7 +23,7 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
         foreach (string designFile in Directory.EnumerateFiles(designsPath, "*.design.yaml"))
         {
             string designFileContent = await File.ReadAllTextAsync(designFile);
-            DesignFileBaseInfo reducedDesignFile = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.ReducedDesignFile)
+            DesignFileBaseInfo reducedDesignFile = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.DesignFileBaseInfo)
                 ?? throw new InvalidOperationException("Couldn't read design file!");
 
             HomePanelInfo homePanelInfo = reducedDesignFile.Homepanel
@@ -45,7 +45,7 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
             };
         }
     }
-    
+
     public async Task<DesignInfo[]> GetDesignInfos()
     {
         List<DesignInfo> designInfos = [];

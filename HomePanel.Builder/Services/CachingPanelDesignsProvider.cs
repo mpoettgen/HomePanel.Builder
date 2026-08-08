@@ -1,4 +1,4 @@
-﻿using HomePanel.Builder.Client.Models;
+using HomePanel.Builder.Client.Models;
 using HomePanel.Builder.Client.Services;
 using Microsoft.Extensions.Caching.Memory;
 

@@ -1,4 +1,4 @@
-﻿namespace HomePanel.Builder.Client.Models;
+namespace HomePanel.Builder.Client.Models;
 
 /// <summary>
 /// Represents information about a panel design, including its identifier, name, design, and configuration.

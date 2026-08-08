@@ -1,6 +1,6 @@
-﻿using HomePanel.Builder.Models;
-using SharpYaml.Serialization;
 using System.Text.Json.Serialization;
+using HomePanel.Builder.Models;
+using SharpYaml.Serialization;
 
 namespace HomePanel.Builder.Services;
 

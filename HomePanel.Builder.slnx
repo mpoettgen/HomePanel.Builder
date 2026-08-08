@@ -2,6 +2,8 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".github/copilot-instructions.md" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="global.json" />
     <File Path="README.md" />
     <File Path="VISION.md" />
   </Folder>

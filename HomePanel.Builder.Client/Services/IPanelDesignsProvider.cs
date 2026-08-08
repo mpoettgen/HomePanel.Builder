@@ -1,9 +1,8 @@
-﻿using HomePanel.Builder.Client.Models;
+using HomePanel.Builder.Client.Models;
 
-namespace HomePanel.Builder.Client.Services
+namespace HomePanel.Builder.Client.Services;
+
+public interface IPanelDesignsProvider
 {
-    public interface IPanelDesignsProvider
-    {
-        Task<DesignInfo[]> GetDesignInfos();
-    }
+    Task<DesignInfo[]> GetDesignInfos();
 }

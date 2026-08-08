@@ -1,4 +1,4 @@
-﻿namespace HomePanel.Builder.Models;
+namespace HomePanel.Builder.Models;
 
 /// <summary>
 /// Represents the information about a HomePanel device.

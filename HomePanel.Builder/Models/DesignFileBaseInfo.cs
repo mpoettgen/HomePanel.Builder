@@ -1,4 +1,4 @@
-﻿namespace HomePanel.Builder.Models;
+namespace HomePanel.Builder.Models;
 
 /// <summary>
 /// Represents the base information of a design file, including the HomePanel information.

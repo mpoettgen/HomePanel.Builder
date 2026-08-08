@@ -1,4 +1,4 @@
-﻿namespace HomePanel.Builder;
+namespace HomePanel.Builder;
 
 public class HomePanelBuilderConfiguration
 {
