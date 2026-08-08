@@ -1,7 +1,8 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="HomePanel.Builder/HomePanel.Builder.Client/HomePanel.Builder.Client.csproj" />
-  <Project Path="HomePanel.Builder/HomePanel.Builder/HomePanel.Builder.csproj" />
+  <Project Path="HomePanel.Builder.Client/HomePanel.Builder.Client.csproj" />
+  <Project Path="HomePanel.Builder/HomePanel.Builder.csproj" />
 </Solution>
