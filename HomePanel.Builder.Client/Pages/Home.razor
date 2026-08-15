@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using HomePanel.Builder.Client.Components
 @using HomePanel.Builder.Client.Models
 @using HomePanel.Builder.Client.Services
 @attribute [StreamRendering]
@@ -12,26 +13,28 @@
 }
 else
 {
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
-        @foreach (DesignInfo design in Designs)
-        {
-        <div class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@design.Name</h5>
-                    <p class="card-text">@design.Config</p>
-                    <p class="card-text">@design.Device</p>
-                </div>
-                <div class="card-footer">
-                    <a href="@($"/edit/{design.Identifier}")" class="btn btn-primary">Edit</a>
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
+            @foreach (DesignInfo design in Designs)
+            {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@design.FriendlyName</h5>
+                        <p class="card-text">@design.Config</p>
+                        <p class="card-text">@design.Device</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="@($"/edit/{design.Name}")" class="btn btn-primary">Edit</a>
+                    </div>
                 </div>
             </div>
+            }
         </div>
-        }
     </div>
 }
 
-<div class="position-fixed bottom-0 end-0 mb-3 me-3"><a href="#" class="btn btn-primary">Add Panel</a></div>
+<AddPanelModal OnPanelAdded="PanelAdded" />
 
 @code {
     [PersistentState]
@@ -40,5 +43,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         Designs = await PanelDesignsProvider.GetDesignInfos();
+    }
+
+    private void PanelAdded(DesignInfo designInfo)
+    {
+        Designs = Designs?.Append(designInfo).ToArray();
     }
 }

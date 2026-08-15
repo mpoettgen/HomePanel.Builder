@@ -7,7 +7,9 @@
       "library": "bootstrap@5.3.8",
       "destination": "wwwroot/lib/bootstrap/",
       "files": [
-        "dist/css/bootstrap.min.css"
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.min.js.map"
       ]
     }
   ]

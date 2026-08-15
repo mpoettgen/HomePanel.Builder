@@ -1,0 +1,22 @@
+﻿devices:
+  - id: guition_jc8012p4a1
+    name: Guition JC8012P4A1
+    marketing_name: 10.1 inch Guition JC8012P4A1 display
+    resolution:
+      width: 800
+      height: 1280
+    default_orientation: portrait
+  - id: guition_jc1060p470
+    name: Guition JC1060P470
+    marketing_name: 7.0 inch Guition JC1060P470 display
+    resolution:
+      width: 600
+      height: 1024
+    default_orientation: landscape
+  - id: guition_jc4880p443
+    name: Guition JC4880P443
+    marketing_name: 4.3 inch Guition JC4880P443 display
+    resolution:
+      width: 480
+      height: 800
+    default_orientation: portrait

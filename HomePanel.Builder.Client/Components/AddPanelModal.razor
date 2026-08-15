@@ -1,0 +1,44 @@
+@if (RendererInfo.IsInteractive)
+{
+    <div class="modal fade" id="addPanelModal" tabindex="-1" aria-labelledby="addPanelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addPanelModalLabel">Add a new panel</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Please select the device that you plan to use and provide a name for the panel.
+                    <EditForm FormName="AddPanelForm" Model="Model">
+                        <InputSelect id="panel-device-id" class="form-select" aria-label="Default select example" @bind-Value="Model!.DeviceId">
+                            <option selected>Select a device</option>
+                            @if (Devices != null)
+                            {
+                                @foreach (var device in Devices)
+                                {
+                                    <option value="@device.Id">@device.Name</option>
+                                }
+                            }
+                        </InputSelect>
+                        <div class="mb-3">
+                            <label for="panel-friendlyname" class="col-form-label">Name</label>
+                            <InputText id="panel-friendlyname" class="form-control" @bind-Value="Model!.FriendlyName" @oninput="FriendlyNameChanging" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="panel-name" class="col-form-label">Hostname</label>
+                            <InputText id="panel-name" class="form-control" @bind-Value="Model!.Name" @oninput="NameChanging" />
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" disabled="@(!HaveEnoughInformation)" @onclick="Submit">Design Panel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="position-fixed bottom-0 end-0 mb-3 me-3">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPanelModal" @onclick="ShowModal" disabled="@(!RendererInfo.IsInteractive)">Add Panel</button>
+</div>

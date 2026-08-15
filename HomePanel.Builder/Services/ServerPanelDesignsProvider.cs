@@ -10,33 +10,49 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
 {
     private readonly HomePanelBuilderConfiguration _config = options.Value;
 
+    public string DesignsPath
+    {
+        get
+        {
+            string designsPath = _config.GetDesignsPath();
+            if (!Directory.Exists(designsPath))
+                Directory.CreateDirectory(designsPath);
+
+            return designsPath;
+        }
+    }
+
+    public string ConfigsPath
+    {
+        get
+        {
+            string configsPath = _config.GetEsphomeConfigPath();
+            if (!Directory.Exists(configsPath))
+                throw new InvalidOperationException($"Configs path '{configsPath}' does not exist.");
+            return configsPath;
+        }
+    }
+
     private async IAsyncEnumerable<DesignInfo> GetDesignFiles()
     {
-        string designsPath = _config.GetDesignsPath();
-        if (!Directory.Exists(designsPath))
-            yield break;
-
-        string? configPath = Path.GetDirectoryName(designsPath);
-        if (configPath is null)
-            yield break;
-
-        foreach (string designFile in Directory.EnumerateFiles(designsPath, "*.design.yaml"))
+        foreach (string designFile in Directory.EnumerateFiles(DesignsPath, "*.design.yaml"))
         {
             string designFileContent = await File.ReadAllTextAsync(designFile);
             DesignFileBaseInfo reducedDesignFile = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.DesignFileBaseInfo)
-                ?? throw new InvalidOperationException("Couldn't read design file!");
+                ?? throw new InvalidOperationException($"Couldn't read design file '{designFile}'!");
 
             HomePanelInfo homePanelInfo = reducedDesignFile.Homepanel
-                ?? throw new InvalidOperationException("Couldn't read home panel info!");
+                ?? throw new InvalidOperationException($"Couldn't read home panel info for design file '{designFile}'!");
 
-            string identitier = Path.GetFileNameWithoutExtension(
+            // strip both extensions to get the name (e.g., "my_panel.design.yaml" -> "my_panel")
+            string name = Path.GetFileNameWithoutExtension(
                 Path.GetFileNameWithoutExtension(designFile)
                 );
-            string configFile = Path.Combine(configPath, $"{identitier}.yaml");
+            string configFile = Path.Combine(ConfigsPath, $"{name}.yaml");
             yield return new DesignInfo
             {
-                Identifier = identitier,
-                Name = homePanelInfo.FriendlyName ?? identitier,
+                Name = name,
+                FriendlyName = homePanelInfo.FriendlyName ?? name,
                 Design = Path.GetFileName(designFile),
                 DesignFile = designFile,
                 Config = Path.GetFileName(configFile),
@@ -54,5 +70,55 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
             designInfos.Add(designInfo);
         }
         return [.. designInfos];
+    }
+
+    public async Task<DesignInfo> AddNewPanel(NewPanelInfo newPanelInfo)
+    {
+        string name = newPanelInfo.Name
+            ?? throw new InvalidOperationException("New panel name cannot be null!");
+        string friendlyName = newPanelInfo.FriendlyName ?? name;
+        string deviceId = newPanelInfo.DeviceId
+            ?? throw new InvalidOperationException("Need to select a device!");
+
+        string newDesignFileName = $"{newPanelInfo.Name}.design.yaml";
+        string newDesignFilePath = Path.Combine(DesignsPath, newDesignFileName);
+        if (File.Exists(newDesignFilePath))
+            throw new InvalidOperationException($"Design file '{newDesignFilePath}' already exists.");
+
+        string newConfigFileName = $"{newPanelInfo.Name}.yaml";
+        string newConfigFilePath = Path.Combine(ConfigsPath, newConfigFileName);
+        if (File.Exists(newConfigFilePath))
+            throw new InvalidOperationException($"Config file '{newConfigFilePath}' already exists.");
+
+        DesignFileBaseInfo designFile = new()
+        {
+            Homepanel = new HomePanelInfo
+            {
+                Name = name,
+                FriendlyName = friendlyName,
+                Device = deviceId,
+            }
+        };
+
+        using (MemoryStream memoryStream = new())
+        {
+            YamlSerializer.Serialize(memoryStream, designFile, DesignFileYamlContext.Default);
+            memoryStream.Position = 0;  // rewind the stream to the beginning before copying it to the file
+
+            using FileStream file = File.Create(newDesignFilePath);
+            await memoryStream.CopyToAsync(file);
+            await file.FlushAsync();
+        }
+
+        return new DesignInfo
+        {
+            Name = name,
+            FriendlyName = friendlyName,
+            Design = newDesignFileName,
+            DesignFile = newDesignFilePath,
+            Config = newConfigFileName,
+            ConfigFile = newConfigFilePath,
+            Device = deviceId
+        };
     }
 }

@@ -7,19 +7,16 @@ public class ClientPanelDesignsProvider(HttpClient http) : IPanelDesignsProvider
 {
     private readonly HttpClient _http = http;
 
-    public Task<DesignInfo[]> GetDesignInfos()
+    public async Task<DesignInfo> AddNewPanel(NewPanelInfo newPanelInfo)
     {
-        return _http.GetFromJsonAsync<DesignInfo[]>("/api/designs")
-            .ContinueWith(task =>
-            {
-                if (!task.IsCompletedSuccessfully || task.Result is null)
-                {
-                    // Handle the error
-                    Console.WriteLine($"Error fetching panel designs: {task.Exception?.Message ?? "Unexpected result!"}");
-                    return [];
-                }
+        HttpResponseMessage response = await _http.PostAsJsonAsync("/api/designs", newPanelInfo);
+        return await response.Content.ReadFromJsonAsync<DesignInfo>()
+            ?? throw new InvalidOperationException("Failed to add new panel.");
+    }
 
-                return task.Result;
-            });
+    public async Task<DesignInfo[]> GetDesignInfos()
+    {
+        return await _http.GetFromJsonAsync<DesignInfo[]>("/api/designs")
+            ?? throw new InvalidOperationException("Failed to fetch panel designs.");
     }
 }

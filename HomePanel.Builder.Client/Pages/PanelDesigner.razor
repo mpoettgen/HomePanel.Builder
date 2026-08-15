@@ -1,0 +1,14 @@
+﻿@page "/edit/{designIdentifier}/{pageIdentifier?}"
+@using HomePanel.Builder.Client.Services
+@attribute [StreamRendering]
+@inject IPanelDesignsProvider PanelDesignsProvider
+
+<PageTitle>@DesignIdentifier - Home Panel Builder</PageTitle>
+<h3>Panel Designer</h3>
+
+@code {
+    [Parameter]
+    public string DesignIdentifier { get; set; } = default!;
+    [Parameter]
+    public string? PageIdentifier { get; set; }
+}
