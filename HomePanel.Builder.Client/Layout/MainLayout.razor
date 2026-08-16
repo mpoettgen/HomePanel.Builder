@@ -1,18 +1,24 @@
 ﻿@inherits LayoutComponentBase
-
-<nav class="navbar fixed-top bg-primary-subtle" data-bs-theme="light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img src="@Assets["favicon.png"]" alt="Logo" width="32" height="32" class="d-inline-block align-text-top" />
-            HomePanel Builder
-        </a>
-    </div>
-</nav>
-
+<header>
+    <nav class="navbar fixed-top bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="@Assets["favicon.png"]" alt="Logo" width="32" height="32" class="d-inline-block align-text-top" />
+                HomePanel Builder
+            </a>
+        </div>
+    </nav>
+</header>
 <main>
     @Body
 </main>
-
+<footer class="footer mt-auto py-1 bg-secondary-subtle">
+    <div class="container-fluid">
+        <center>
+            <p class="mb-0"><small>HomePanel Builder 0.0.1</small></p>
+        </center>
+    </div>
+</footer>
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
