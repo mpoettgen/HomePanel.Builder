@@ -11,6 +11,15 @@
         "dist/js/bootstrap.min.js",
         "dist/js/bootstrap.min.js.map"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "@mdi/svg@7.4.47",
+      "destination": "wwwroot/lib/mdi/",
+      "files": [
+        "meta.json",
+        "svg/*"
+      ]
     }
   ]
 }

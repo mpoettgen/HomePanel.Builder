@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\mdi\meta.json" />
+    <EmbeddedResource Include="wwwroot\lib\mdi\meta.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HomePanel.Builder.Client\HomePanel.Builder.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.11" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.114" />
     <PackageReference Include="SharpYaml" Version="3.13.0" />
   </ItemGroup>
