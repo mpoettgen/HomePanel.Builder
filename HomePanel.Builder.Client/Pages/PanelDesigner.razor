@@ -1,24 +1,30 @@
 ﻿@page "/edit/{designName}"
 @using HomePanel.Builder.Client.Components
+@using HomePanel.Builder.Client.Models
 @using HomePanel.Builder.Client.Services
 @attribute [StreamRendering]
 @inject IPanelDesignsProvider PanelDesignsProvider
 <PageTitle>@DesignName - Home Panel Builder</PageTitle>
-<h3>Panel Designer</h3>
-<div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
-        <Icon Id="mdi:home" />The current button
-    </button>
-    <button type="button" class="list-group-item list-group-item-action">
-        <Icon Id="mdi:account" />A second button item
-    </button>
-    <button type="button" class="list-group-item list-group-item-action">
-        <Icon Id="mdi:bell" />A third button item
-    </button>
-    <button type="button" class="list-group-item list-group-item-action">
-        <Icon Id="mdi:calendar" />A fourth button item
-    </button>
-    <button type="button" class="list-group-item list-group-item-action" disabled>
-        <Icon Id="mdi:close" />A disabled button item
-    </button>
+
+<div class="d-flex flex-row h-100 w-100">
+    <div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary border-end" style="width: 380px; height: 100%">
+        <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+            <a href="/" class="btn btn-light rounded-circle"><Icon Id="mdi:arrow-left" /></a><span class="fs-5 fw-semibold">@(PanelDesign?.Homepanel?.FriendlyName)</span>
+        </div>
+        <div class="list-group list-group-flush border-bottom vertical-scroll">
+            @if (PanelPages is not null)
+            {
+                foreach (PanelPage panelPage in PanelPages)
+                {
+            <PageSelectButton Page="@panelPage" IsCurrent="@(CurrentPage == panelPage)" OnPageSelect="HandlePageSelect" />
+                }
+            }
+        </div>
+    </div>
+    <div class="d-flex flex-column flex-grow-1 p-2 full-scroll">
+        <div style="background-color: @(Color); width: @(Width)px; height: @(Height)px;"></div>
+    </div>
+    <div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary border-start" style="width: 380px; height: 100%">
+        <strong class="mb-1">@(CurrentPage?.Title)</strong>
+    </div>
 </div>

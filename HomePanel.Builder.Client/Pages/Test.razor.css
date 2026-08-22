@@ -1,0 +1,4 @@
+/* CSS for Test component */
+.scrollarea {
+    overflow-y: auto;
+}

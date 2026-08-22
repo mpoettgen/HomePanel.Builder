@@ -7,20 +7,13 @@ public class ClientDeviceListProvider(HttpClient http) : IDeviceListProvider
 {
     private readonly HttpClient _http = http;
 
-    public Task<DeviceInfo[]> GetDeviceList()
+    public async Task<DeviceInfo?> GetDeviceInfo(string deviceId)
     {
-        return _http.GetFromJsonAsync<DeviceInfo[]>("/api/devices")
-            .ContinueWith(task =>
-            {
-                if (!task.IsCompletedSuccessfully || task.Result is null)
-                {
-                    // Handle the error
-                    Console.WriteLine($"Error fetching device list: {task.Exception?.Message ?? "Unexpected result!"}");
-                    return [];
-                }
+        return await _http.GetFromJsonAsync<DeviceInfo>($"/api/devices/{deviceId}");
+    }
 
-                return task.Result;
-            });
-
+    public async Task<DeviceInfo[]> GetDeviceList()
+    {
+        return await _http.GetFromJsonAsync<DeviceInfo[]>("/api/devices") ?? [];
     }
 }

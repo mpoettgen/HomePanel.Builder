@@ -19,4 +19,11 @@ public class ClientPanelDesignsProvider(HttpClient http) : IPanelDesignsProvider
         return await _http.GetFromJsonAsync<DesignInfo[]>("/api/designs")
             ?? throw new InvalidOperationException("Failed to fetch panel designs.");
     }
+
+    public async Task<PanelDesign> LoadPanelDesign(string name)
+    {
+        PanelDesign panelDesign = await _http.GetFromJsonAsync<PanelDesign>($"/api/designs/{name}")
+            ?? throw new InvalidOperationException("Failed to load panel design.");
+        return panelDesign;
+    }
 }

@@ -1,0 +1,9 @@
+/* CSS for PanelDesigner component */
+.vertical-scroll {
+    overflow-y: auto;
+}
+
+.full-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+}

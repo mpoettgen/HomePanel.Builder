@@ -5,11 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    <InternalsVisibleTo>HomePanel.Builder.Tests</InternalsVisibleTo>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\lib\mdi\meta.json" />
-    <EmbeddedResource Include="wwwroot\lib\mdi\meta.json" />
+    <Content Remove="iconroot\icons\mdi\meta.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="iconroot\icons\mdi\meta.json" />
   </ItemGroup>
 
   <ItemGroup>

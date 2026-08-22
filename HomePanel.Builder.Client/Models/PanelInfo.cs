@@ -1,9 +1,9 @@
-namespace HomePanel.Builder.Models;
+namespace HomePanel.Builder.Client.Models;
 
 /// <summary>
 /// Represents the information about a HomePanel device.
 /// </summary>
-public class HomePanelInfo
+public class PanelInfo
 {
     /// <summary>
     /// Gets or sets the name of the HomePanel device.
@@ -19,4 +19,9 @@ public class HomePanelInfo
     /// Gets or sets the device identifier for the HomePanel device.
     /// </summary>
     public required string Device { get; set; }
+
+    /// <summary>
+    /// Gets or sets the rotation of the HomePanel device.
+    /// </summary>
+    public Rotation Rotation { get; set; } = Rotation.None;
 }

@@ -3,6 +3,7 @@ using HomePanel.Builder.Client.Models;
 using HomePanel.Builder.Client.Services;
 using HomePanel.Builder.Components;
 using HomePanel.Builder.Services;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,13 @@ builder.Services
     .AddScoped<ServerPanelDesignsProvider>()
     .AddScoped<IPanelDesignsProvider, CachingPanelDesignsProvider>()
     .AddScoped<ServerDeviceListProvider>()
-    .AddScoped<IDeviceListProvider, CachingDeviceListProvider>();
+    .AddScoped<IDeviceListProvider, CachingDeviceListProvider>()
+    .AddScoped<IconUrlProvider>()
+    .AddScoped<IIconService, ServerIconService>()
+    ;
+
+builder.Services
+    .AddSingleton<IIconProvider, MdiIconProvider>();
 
 var app = builder.Build();
 
@@ -43,13 +50,22 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "iconroot", "icons")),
+    RequestPath = "/icons"
+});
+
 app.MapStaticAssets();
+
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(HomePanel.Builder.Client._Imports).Assembly);
 
 app.MapPost("/api/designs", (IPanelDesignsProvider provider, NewPanelInfo newPanelInfo) => provider.AddNewPanel(newPanelInfo));
 app.MapGet("/api/designs", (IPanelDesignsProvider provider) => provider.GetDesignInfos());
+app.MapGet("/api/designs/{name}", (IPanelDesignsProvider provider, string name) => provider.LoadPanelDesign(name));
 app.MapGet("/api/devices", (IDeviceListProvider provider) => provider.GetDeviceList());
+app.MapGet("/api/devices/{deviceId}", (IDeviceListProvider provider, string deviceId) => provider.GetDeviceInfo(deviceId));
 
 app.Run();

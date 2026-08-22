@@ -4,9 +4,11 @@
     <File Path=".github/copilot-instructions.md" />
     <File Path="CONTRIBUTING.md" />
     <File Path="global.json" />
+    <File Path="HomePanel.Builder.cmd" />
     <File Path="README.md" />
     <File Path="VISION.md" />
   </Folder>
   <Project Path="HomePanel.Builder.Client/HomePanel.Builder.Client.csproj" />
+  <Project Path="HomePanel.Builder.Tests/HomePanel.Builder.Tests.csproj" Id="30aeaf93-f49b-4a1a-912d-106adb1b3152" />
   <Project Path="HomePanel.Builder/HomePanel.Builder.csproj" />
 </Solution>

@@ -1,0 +1,33 @@
+﻿@page "/test"
+@using HomePanel.Builder.Client.Components
+@layout TestLayout
+<div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 380px; height: 100%">
+    <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+        <span class="fs-5 fw-semibold">Bedroom Panel</span>
+    </div>
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        <div class="list-group-item list-group-item-action py-3 lh-sm" aria-current="false">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1">Home</strong>
+                <small><Icon Id="mdi:home" /></small>
+            </div>
+            <div class="col-10 mb-1 small">This is the home page.</div>
+        </div>
+        <div class="list-group-item list-group-item-action py-3 lh-sm active" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1">Weather</strong>
+            </div>
+            <div class="col-10 mb-1 small">Shows current weather and forecasts.</div>
+        </div>
+        <div class="list-group-item list-group-item-action py-3 lh-sm" aria-current="false">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1">Photos</strong>
+                <small><Icon Id="mdi:bed-clock" /></small>
+            </div>
+            <div class="col-10 mb-1 small">When idle, shows a slideshow from your photo library.</div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    Here is some text
+</div>

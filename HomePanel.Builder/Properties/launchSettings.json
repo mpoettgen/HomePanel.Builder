@@ -17,11 +17,12 @@
         "dotnetRunMessages": true,
         "launchBrowser": true,
         "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-        "applicationUrl": "https://homepanel-builder.dev.localhost:7033;http://homepanel-builder.dev.localhost:5082",
+        "applicationUrl": "https://homepanel-builder.dev.localhost:7033",
         "environmentVariables": {
           "ASPNETCORE_ENVIRONMENT": "Development",
           "HOMEPANEL_BUILDER_ESPHOME_CONFIG": "C:\\Users\\michael.POWER\\esphome"
-        }
+        },
+        "launchUrl": "https://homepanel-builder.dev.localhost:7033/edit/schlafzimmer-panel"
       }
     }
   }

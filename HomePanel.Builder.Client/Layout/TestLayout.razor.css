@@ -1,0 +1,7 @@
+/* CSS for TestLayout component */
+main {
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow-x: auto;
+    overflow-y: hidden;
+}

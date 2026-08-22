@@ -1,0 +1,10 @@
+/* CSS for Icon component */
+i {
+    svg {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
+        vertical-align: -.125em;
+    }
+}

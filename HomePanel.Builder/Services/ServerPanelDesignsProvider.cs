@@ -38,10 +38,10 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
         foreach (string designFile in Directory.EnumerateFiles(DesignsPath, "*.design.yaml"))
         {
             string designFileContent = await File.ReadAllTextAsync(designFile);
-            DesignFileBaseInfo reducedDesignFile = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.DesignFileBaseInfo)
+            PanelDesignBase reducedDesignInfo = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.PanelDesignBase)
                 ?? throw new InvalidOperationException($"Couldn't read design file '{designFile}'!");
 
-            HomePanelInfo homePanelInfo = reducedDesignFile.Homepanel
+            PanelInfo homePanelInfo = reducedDesignInfo.Homepanel
                 ?? throw new InvalidOperationException($"Couldn't read home panel info for design file '{designFile}'!");
 
             // strip both extensions to get the name (e.g., "my_panel.design.yaml" -> "my_panel")
@@ -90,9 +90,9 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
         if (File.Exists(newConfigFilePath))
             throw new InvalidOperationException($"Config file '{newConfigFilePath}' already exists.");
 
-        DesignFileBaseInfo designFile = new()
+        PanelDesignBase designFile = new()
         {
-            Homepanel = new HomePanelInfo
+            Homepanel = new PanelInfo
             {
                 Name = name,
                 FriendlyName = friendlyName,
@@ -120,5 +120,19 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
             ConfigFile = newConfigFilePath,
             Device = deviceId
         };
+    }
+
+    public async Task<PanelDesign> LoadPanelDesign(string name)
+    {
+        string designFile = Path.Combine(DesignsPath, $"{name}.design.yaml");
+        string designFileContent = await File.ReadAllTextAsync(designFile);
+        PanelDesign panelDesign = YamlSerializer.Deserialize(designFileContent, DesignFileYamlContext.Default.PanelDesign)
+            ?? throw new InvalidOperationException($"Couldn't read design file '{designFile}'!");
+
+        panelDesign.Pages ??= [];
+        if (!panelDesign.Pages.Any(p => p.IsHomePage))
+            panelDesign.Pages.Add(new PanelPage { Id = "home", IsHomePage = true, Title = "Home" });
+
+        return panelDesign;
     }
 }

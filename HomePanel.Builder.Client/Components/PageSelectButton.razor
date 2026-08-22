@@ -1,0 +1,14 @@
+﻿<button @key="Id" type="button" class="list-group-item list-group-item-action py-3 lh-sm @(IsCurrent ? "active" : "")" aria-current="@(IsCurrent ? "true" : "false")" @onclick="HandleClick">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+        <strong class="mb-1">@(Page.Title)</strong>
+        @if (Page.IsHomePage == true)
+        {
+            <small><Icon Id="mdi:home" /></small>
+        }
+        @if (Page.IsIdlePage == true)
+        {
+            <small><Icon Id="mdi:bed-clock" /></small>
+        }
+    </div>
+    <div class="col-10 mb-1 small">@(Page.Description)</div>
+</button>

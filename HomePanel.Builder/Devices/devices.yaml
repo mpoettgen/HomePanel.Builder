@@ -5,6 +5,9 @@
     resolution:
       width: 800
       height: 1280
+    base_grid:
+      width: 10
+      height: 16
     default_orientation: portrait
   - id: guition_jc1060p470
     name: Guition JC1060P470
@@ -12,6 +15,9 @@
     resolution:
       width: 600
       height: 1024
+    base_grid:
+      width: 7
+      height: 12
     default_orientation: landscape
   - id: guition_jc4880p443
     name: Guition JC4880P443
@@ -19,4 +25,7 @@
     resolution:
       width: 480
       height: 800
+    base_grid:
+      width: 6
+      height: 10
     default_orientation: portrait

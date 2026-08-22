@@ -15,7 +15,7 @@
     {
       "provider": "jsdelivr",
       "library": "@mdi/svg@7.4.47",
-      "destination": "wwwroot/lib/mdi/",
+      "destination": "iconroot/icons/mdi/",
       "files": [
         "meta.json",
         "svg/*"
