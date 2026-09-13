@@ -5,11 +5,16 @@
 @attribute [StreamRendering]
 @inject IPanelDesignsProvider PanelDesignsProvider
 <PageTitle>@DesignName - Home Panel Builder</PageTitle>
+<SectionContent SectionName="top-bar">
+    <button class="btn btn-light" @onclick="GenerateConfiguration">Generate ESPHome Configuration</button>
+</SectionContent>
 
 <div class="d-flex flex-row h-100 w-100">
     <div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary border-end" style="width: 380px; height: 100%">
         <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-            <a href="/" class="btn btn-light rounded-circle"><Icon Id="mdi:arrow-left" /></a><span class="fs-5 fw-semibold">@(PanelDesign?.Homepanel?.FriendlyName)</span>
+            <a href="/" class="btn btn-light rounded-circle"><Icon Id="mdi:arrow-left" /></a>
+            <span class="fs-5 fw-semibold">@(PanelDesign?.Homepanel?.FriendlyName)</span>
+            <button href="/" class="btn btn-primary rounded-circle ms-auto"><Icon Id="mdi:view-grid-plus-outline" /></button>
         </div>
         <div class="list-group list-group-flush border-bottom vertical-scroll">
             @if (PanelPages is not null)
@@ -22,9 +27,16 @@
         </div>
     </div>
     <div class="d-flex flex-column flex-grow-1 p-2 full-scroll">
-        <div style="background-color: @(Color); width: @(Width)px; height: @(Height)px;"></div>
+@if (PanelDesign is null)
+{
+        <text>Loading ...</text>
+}
+else
+{
+        <PageDesignView Design="@PanelDesign" Page="@CurrentPage" Device="@Device" />
+}
     </div>
-    <div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary border-start" style="width: 380px; height: 100%">
+@*     <div class="d-flex flex-column flex-nowrap align-items-stretch flex-shrink-0 bg-body-tertiary border-start" style="width: 380px; height: 100%">
         <strong class="mb-1">@(CurrentPage?.Title)</strong>
-    </div>
+    </div> *@
 </div>

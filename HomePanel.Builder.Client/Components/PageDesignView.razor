@@ -1,0 +1,24 @@
+﻿@using HomePanel.Builder.Client.Components.Tiles
+@using HomePanel.Builder.Client.Models.Tiles
+<div class="position-relative" style="background-color: @(Color); width: @(Width)px; height: @(Height)px;">
+    @if (DesignMode)
+{
+    <svg width="@(Width)" height="@(Height)" xmlns="http://www.w3.org/2000/svg">
+    @for (int column = 1; column < Columns; column++)
+    {
+        for (int row = 1; row < Rows; row++)
+        {
+            float x = column * CellWidth - 0.5f;
+            float y = row * CellHeight - 0.5f;
+        <path fill="none" stroke="darkorange" d="M @x.ToValue() @y.ToValue() h -4 v 1 h 4 v 4 h 1 v -4 h 4 v -1 h -4 v -4 h -1 v 4"/>
+        }
+    }
+    </svg>
+}
+    <div class="position-absolute top-0 start-0">
+@foreach (Tile tile in Page.Tiles)
+{
+        <TileView Tile="@tile" CellWidth="@CellWidth" CellHeight="@CellHeight" />
+}
+    </div>
+</div>

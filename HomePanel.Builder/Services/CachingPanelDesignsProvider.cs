@@ -28,6 +28,12 @@ public class CachingPanelDesignsProvider(IMemoryCache memoryCache, ServerPanelDe
         return _serverPanelDesignsProvider.LoadPanelDesign(name);
     }
 
+    public Task SavePanelDesign(string name, PanelDesign panelDesign)
+    {
+        // Not caching design files
+        return _serverPanelDesignsProvider.SavePanelDesign(name, panelDesign);
+    }
+
     private async Task<List<DesignInfo>> GetDesignInfoList()
     {
         return (await _memoryCache.GetOrCreateAsync("designInfos", async entry =>

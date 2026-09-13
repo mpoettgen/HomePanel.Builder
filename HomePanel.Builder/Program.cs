@@ -3,6 +3,7 @@ using HomePanel.Builder.Client.Models;
 using HomePanel.Builder.Client.Services;
 using HomePanel.Builder.Components;
 using HomePanel.Builder.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services
     .AddMemoryCache()
     .AddScoped<ServerPanelDesignsProvider>()
     .AddScoped<IPanelDesignsProvider, CachingPanelDesignsProvider>()
+    .AddScoped<IConfigurationGenerator, EspHomeConfigGenerator>()
     .AddScoped<ServerDeviceListProvider>()
     .AddScoped<IDeviceListProvider, CachingDeviceListProvider>()
     .AddScoped<IconUrlProvider>()
@@ -62,9 +64,11 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(HomePanel.Builder.Client._Imports).Assembly);
 
-app.MapPost("/api/designs", (IPanelDesignsProvider provider, NewPanelInfo newPanelInfo) => provider.AddNewPanel(newPanelInfo));
+app.MapPost("/api/designs", (IPanelDesignsProvider provider, [FromBody] NewPanelInfo newPanelInfo) => provider.AddNewPanel(newPanelInfo));
 app.MapGet("/api/designs", (IPanelDesignsProvider provider) => provider.GetDesignInfos());
 app.MapGet("/api/designs/{name}", (IPanelDesignsProvider provider, string name) => provider.LoadPanelDesign(name));
+app.MapPut("/api/designs/{name}", (IPanelDesignsProvider provider, string name, [FromBody] PanelDesign panelDesign) => provider.SavePanelDesign(name, panelDesign));
+app.MapPost("/api/designs/{name}/generate", (IConfigurationGenerator generator, string name) => generator.Generate(name));
 app.MapGet("/api/devices", (IDeviceListProvider provider) => provider.GetDeviceList());
 app.MapGet("/api/devices/{deviceId}", (IDeviceListProvider provider, string deviceId) => provider.GetDeviceInfo(deviceId));
 

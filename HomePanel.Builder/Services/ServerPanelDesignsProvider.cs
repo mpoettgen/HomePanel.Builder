@@ -6,7 +6,9 @@ using SharpYaml;
 
 namespace HomePanel.Builder.Services;
 
-public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> options) : IPanelDesignsProvider
+public class ServerPanelDesignsProvider(
+    IOptions<HomePanelBuilderConfiguration> options
+    ) : IPanelDesignsProvider
 {
     private readonly HomePanelBuilderConfiguration _config = options.Value;
 
@@ -134,5 +136,17 @@ public class ServerPanelDesignsProvider(IOptions<HomePanelBuilderConfiguration> 
             panelDesign.Pages.Add(new PanelPage { Id = "home", IsHomePage = true, Title = "Home" });
 
         return panelDesign;
+    }
+
+    public async Task SavePanelDesign(string name, PanelDesign panelDesign)
+    {
+        string designFile = Path.Combine(DesignsPath, $"{name}.design.yaml");
+        string designFileContent = YamlSerializer.Serialize(panelDesign, DesignFileYamlContext.Default.PanelDesign);
+        await File.WriteAllTextAsync(designFile, designFileContent);
+    }
+
+    public string GetConfigurationFilePath(string name)
+    {
+        return Path.Combine(ConfigsPath, $"{name}.yaml");
     }
 }

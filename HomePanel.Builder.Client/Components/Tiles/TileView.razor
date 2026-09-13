@@ -1,0 +1,61 @@
+﻿<div class="position-absolute tile" style="left: @(TileRect.X.ToPixel()); top: @(TileRect.Y.ToPixel()); width: @(TileRect.Width.ToPixel()); height: @(TileRect.Height.ToPixel());">
+    <button type="button" class="tile-button tile-@(TileType) tile-h@(Tile.Size.Height) tile-w@(Tile.Size.Width) w-100 h-100 vstack">
+@if (Tile.Size.Height == 1)
+{
+        <div class="hstack">
+    @if (Tile.Size.Width == 1)
+    {
+        // 1 x 1 can only have either icon or value or name
+        @if (Tile.Icon is string icon && icon != string.Empty)
+        {
+            <Icon class="tile-icon mx-auto" Id="@icon" />
+        }
+        else if (Tile.Value is string value && value != string.Empty)
+        {
+            <div class="tile-value mx-auto">@value</div>
+        }
+        else if (Tile.Name is string name && name != string.Empty)
+        {
+            <div class="tile-name mx-auto">@(name)</div>
+        }
+    }
+    else
+    {
+        // 1 x n can have icon, value and name
+        @if (Tile.Icon is string icon && icon != string.Empty)
+        {
+            <Icon class="tile-icon" Id="@icon" />
+        }
+        @if (Tile.Value is string value && value != string.Empty)
+        {
+            <div class="tile-value ms-auto">@value</div>
+        }
+        @if (Tile.Name is string name && name != string.Empty)
+        {
+            <div class="tile-name">@(name)</div>
+        }
+    }
+        </div>
+}
+else
+{
+    @if (HaveIcon || HaveValue)
+    {
+        <div class="hstack">
+        @if (Tile.Icon is string icon && icon != string.Empty)
+        {
+            <Icon class="tile-icon" Id="@icon" />
+        }
+        @if (Tile.Name is string name && name != string.Empty)
+        {
+            <div class="tile-name">@(name)</div>
+        }
+        </div>
+    }
+    @if (Tile.Value is string value && value != string.Empty)
+    {
+        <div class="tile-value ms-auto">@value</div>
+    }
+}
+    </button>
+</div>

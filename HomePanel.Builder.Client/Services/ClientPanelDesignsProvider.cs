@@ -26,4 +26,10 @@ public class ClientPanelDesignsProvider(HttpClient http) : IPanelDesignsProvider
             ?? throw new InvalidOperationException("Failed to load panel design.");
         return panelDesign;
     }
+
+    public async Task SavePanelDesign(string name, PanelDesign panelDesign)
+    {
+        HttpResponseMessage response = await _http.PutAsJsonAsync($"/api/designs/{name}", panelDesign);
+        response.EnsureSuccessStatusCode();
+    }
 }

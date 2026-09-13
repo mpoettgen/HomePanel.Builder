@@ -13,6 +13,9 @@ public partial class Icon(IIconService iconService)
     [Parameter]
     public string? Alt { get; set; } = default;
 
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
     private MarkupString? Markup { get; set; }
 
     protected override async Task OnInitializedAsync()

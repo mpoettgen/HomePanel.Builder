@@ -1,0 +1,132 @@
+/* CSS for TileView component */
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("/fonts/BarlowCondensed/BarlowCondensed-Regular.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("/fonts/BarlowCondensed/BarlowCondensed-Light.ttf") format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("/fonts/BarlowCondensed/BarlowCondensed-ExtraLight.ttf") format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("/fonts/BarlowCondensed/BarlowCondensed-Thin.ttf") format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+.tile {
+    font-family: "Barlow Condensed";
+    font-weight: 300;
+
+    .tile-button {
+        color: white;
+        background-color: #202020;
+
+        .tile-name {
+            color: lightgrey;
+        }
+    }
+}
+
+
+.tile-h1 {
+    text-align: center;
+
+    .tile-icon, .tile-value {
+        font-size: 40px;
+        display: inline;
+    }
+
+    .tile-name {
+        font-size: 30px;
+        display: inline;
+    }
+}
+
+.tile-h2 {
+
+    .tile-icon {
+        font-size: 40px;
+        display: inline;
+    }
+
+    .tile-value {
+        font-size: 64px;
+        display: inline;
+    }
+
+    .tile-name {
+        font-size: 32px;
+        display: inline;
+    }
+}
+
+.tile-h3 {
+    font-size: 60px;
+}
+
+.tile-h4 {
+    font-size: 70px;
+}
+
+.tile-h5 {
+    font-size: 80px;
+}
+
+.tile-h6 {
+    font-size: 90px;
+}
+
+.tile-h7 {
+    font-size: 100px;
+}
+
+.tile-h8 {
+    font-size: 110px;
+}
+
+.tile-h9 {
+    font-size: 120px;
+}
+
+.tile-h10 {
+    font-size: 100px;
+}
+
+.tile-h11 {
+    font-size: 100px;
+}
+
+.tile-h12 {
+    font-size: 100px;
+}
+
+.tile-h13 {
+    font-size: 100px;
+}
+
+.tile-h14 {
+    font-size: 100px;
+}
+
+.tile-h15 {
+    font-size: 100px;
+}
+
+.tile-h16 {
+    font-size: 100px;
+}

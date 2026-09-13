@@ -1,3 +1,5 @@
+using HomePanel.Builder.Client.Models.Tiles;
+
 namespace HomePanel.Builder.Client.Models;
 
 public class PanelPage
@@ -7,4 +9,5 @@ public class PanelPage
     public bool IsIdlePage { get; set; } = false;
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public List<Tile> Tiles { get; set; } = [];
 }
